@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 
-import { client } from "./util/apiDataFetcher";
 import ProductsPage from "./pages/ProductsPage";
 import { Route, Routes } from "react-router-dom";
 import Product from "./pages/Product";
 import { mainStoreData } from "./util/graphQlSchemas";
 import { allMainStoreData } from "./util/graphQlSchemas";
 import ErrorPage from "./pages/ErrorPage";
+import { client } from "./util/apiDataFetcher";
 class App extends Component {
   constructor(props) {
     super(props);
