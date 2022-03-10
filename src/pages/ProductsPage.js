@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Product from "./Product";
 
 class ProductsPage extends Component {
   constructor(props) {
@@ -15,17 +16,16 @@ class ProductsPage extends Component {
   };
 
   render() {
-    console.log(this.storeDataToDisplay());
     const { selectedCategory } = this.props;
     return (
       <div className="ProductsPage">
         <h3>Current category: {selectedCategory}</h3>
         <b>items:</b>
-        <ul>
+        <div>
           {this.storeDataToDisplay()?.map(({ id, name }) => (
-            <li key={id}>{name}</li>
+            <Product key={id} />
           ))}
-        </ul>
+        </div>
       </div>
     );
   }

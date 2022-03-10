@@ -8,8 +8,9 @@ import Product from "./pages/Product";
 import { allMainStoreData } from "./util/graphQlSchemas";
 import ErrorPage from "./pages/ErrorPage";
 import { client } from "./util/apiDataFetcher";
-import "./App.scss";
 import Navigation from "./components/Navigation";
+import LoadingHinter from "./components/LoadingHinter";
+import "./index.scss";
 
 class App extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class App extends Component {
       storeApiData: [],
       isLoading: true,
       categoryChoices: [],
+      currencies: [],
     };
   }
 
@@ -29,10 +31,12 @@ class App extends Component {
         `,
       })
       .then((result) => {
+        // console.log(result.data.currencies);
         const categories = result.data.categories.map(({ name }) => name);
         this.setState({ storeApiData: result.data.categories });
         this.setState({ isLoading: result.loading });
         this.setState({ categoryChoices: categories });
+        this.setState({ currencies: result.data.currencies });
       });
   }
   // componentDidUpdate(_, prevState) {
@@ -41,27 +45,30 @@ class App extends Component {
   //   }
   // }
   render() {
-    const { categoryChoices, isLoading, storeApiData } = this.state;
+    const { categoryChoices, isLoading, storeApiData, currencies } = this.state;
     if (isLoading) {
-      return <h2>Loading</h2>;
+      return <LoadingHinter />;
     }
-    console.log(categoryChoices[0]);
     return (
       <div className="App">
-        <Navigation categories={categoryChoices || ["no categories"]} />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <ProductsPage
-                storeApiData={storeApiData}
-                selectedCategory={categoryChoices[0]}
+        {categoryChoices.length > 0 && (
+          <>
+            <Navigation categories={categoryChoices} currencies={currencies} />
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <ProductsPage
+                    storeApiData={storeApiData}
+                    selectedCategory={categoryChoices[0]}
+                  />
+                }
               />
-            }
-          />
-          <Route path="/:ID" element={<Product />} />
-          <Route path="*" element={<ErrorPage />} />
-        </Routes>
+              <Route path="/:ID" element={<Product />} />
+              <Route path="*" element={<ErrorPage />} />
+            </Routes>
+          </>
+        )}
       </div>
     );
   }

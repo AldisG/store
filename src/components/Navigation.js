@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import Cart from "./Cart";
+import Logo from "./Logo";
 
 class Navigation extends Component {
   constructor(props) {
@@ -7,18 +9,22 @@ class Navigation extends Component {
     this.state = {};
   }
   render() {
-    const { categories } = this.props;
+    const { categories, currencies } = this.props;
 
     return (
-      <nav className="nav">
-        <ul>
-          {categories?.map((item) => (
+      <div className="navigation-container">
+        <nav className="nav">
+          {categories?.map((item, i) => (
             <li key={item}>
-              <Link to="/">{item}</Link>
+              <Link to="/" className={`link ${!i ? "active" : ""}`}>
+                {item}
+              </Link>
             </li>
           ))}
-        </ul>
-      </nav>
+        </nav>
+        <Logo />
+        <Cart currencies={currencies} />
+      </div>
     );
   }
 }

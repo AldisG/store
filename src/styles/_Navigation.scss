@@ -1,0 +1,42 @@
+.navigation-container,
+.nav {
+  display: flex;
+  align-items: center;
+  a,
+  .Cart {
+    color: $textC;
+  }
+}
+.navigation-container {
+  padding: 2.8rem 10rem 3.2rem 10rem;
+  justify-content: space-between;
+  font-size: 1 6rem;
+}
+.nav {
+  text-transform: uppercase;
+  .link {
+    font-weight: 400;
+    padding: 0 1.6rem 3rem 1.6rem;
+    border-bottom: 2px solid transparent;
+
+    &:hover {
+      border-bottom: 2px solid $textL;
+    }
+  }
+  .link.active {
+    font-weight: 600;
+    color: $cPrimary;
+    position: relative;
+    border-bottom: 1px solid $cPrimary;
+    &:hover {
+      border-bottom: 2px solid $cPrimary;
+    }
+  }
+}
+
+.Logo {
+  width: 2rem;
+}
+.Cart {
+  font-weight: 500;
+}
