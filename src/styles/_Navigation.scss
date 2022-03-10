@@ -39,4 +39,24 @@
 }
 .Cart {
   font-weight: 500;
+  display: flex;
+  gap: 2rem;
+}
+.cart-items {
+  position: relative;
+}
+.item-count-on-cart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 2rem;
+  background-color: $textC;
+  color: white;
+  font-weight: 700;
+  font-size: 1.2rem;
+  top: -1rem;
+  right: -1rem;
 }
