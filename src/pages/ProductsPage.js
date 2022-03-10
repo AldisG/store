@@ -5,8 +5,29 @@ class ProductsPage extends Component {
     super(props);
     this.state = {};
   }
+
+  storeDataToDisplay = () => {
+    const allStoreProducts = this.props.storeApiData;
+    const selectedCategory = this.props.selectedCategory;
+    return allStoreProducts.filter(
+      (items) => items.name === selectedCategory
+    )[0].products;
+  };
+
   render() {
-    return <div className="ProductsPage">ProductsPage page</div>;
+    console.log(this.storeDataToDisplay());
+    const { selectedCategory } = this.props;
+    return (
+      <div className="ProductsPage">
+        <h3>Current category: {selectedCategory}</h3>
+        <b>items:</b>
+        <ul>
+          {this.storeDataToDisplay()?.map(({ id, name }) => (
+            <li key={id}>{name}</li>
+          ))}
+        </ul>
+      </div>
+    );
   }
 }
 export default ProductsPage;
