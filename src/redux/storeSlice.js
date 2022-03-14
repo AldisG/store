@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  cart: [{ title: "dummy item", price: 10, amount: 3 }],
+  cart: [],
   activeCurrency: {
     label: "",
     symbol: "",

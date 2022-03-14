@@ -52,7 +52,7 @@ class App extends Component {
             dataSuccess: true,
           });
         }
-        setAllItemsList(result.data.categories);
+        console.log(result.data.categories);
         setActiveCategory(categories[0]);
         const { label, symbol } = result.data.currencies[0];
         setActiveCurrency({ label, symbol });

@@ -3,6 +3,19 @@
 }
 .AddToCartIcn {
   position: absolute;
+  height: 5.2rem;
+  width: 5.2rem;
   top: 68%;
   right: 2.4rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+  border-radius: 10rem;
+}
+
+.AddToCartIcn--active {
+  opacity: 0.8;
+  &:hover {
+    opacity: 1;
+    box-shadow: 0 1rem 1rem $textL;
+  }
 }

@@ -1,14 +1,16 @@
 import { Component } from "react";
 import cart from "../assets/add-to-cart.png";
 
-const iconStyle = {
-  width: "5.2rem",
-};
-
 class AddToCartIcn extends Component {
   render() {
+    const { showCartAddIcon, addItemToTheCart } = this.props;
     return (
-      <span className="AddToCartIcn" style={iconStyle}>
+      <span
+        onClick={() => addItemToTheCart()}
+        className={`AddToCartIcn ${
+          showCartAddIcon ? "AddToCartIcn--active" : ""
+        }`}
+      >
         <img src={cart} alt="cart" />
       </span>
     );
