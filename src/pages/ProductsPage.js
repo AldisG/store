@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import Product from "./Product";
+import Product from "../components/store-products/Product";
+// import { dispatch, getState } from "../redux/store";
+import { addItems } from "../redux/storeSlice";
+
+import { connect } from "react-redux";
+import { mapDispatchToProps, mapStateToProps } from "../redux/mapStates";
 
 class ProductsPage extends Component {
   constructor(props) {
@@ -7,28 +12,31 @@ class ProductsPage extends Component {
     this.state = {};
   }
 
-  storeDataToDisplay = () => {
-    const allStoreProducts = this.props.storeApiData;
-    const selectedCategory = this.props.selectedCategory;
-    return allStoreProducts.filter(
-      (items) => items.name === selectedCategory
-    )[0].products;
-  };
-
+  storeDataToDisplay = () => {};
   render() {
-    const { selectedCategory } = this.props;
+    const { selectedCategory } = this.props.cart;
+    const { storeApiData } = this.props;
+    const correctCategoryItems = storeApiData.find(
+      (item) => item.name === selectedCategory
+    ).products;
+
+    const activeCategory =
+      selectedCategory[0].toUpperCase() + selectedCategory.slice(1);
+
     return (
       <div className="ProductsPage">
-        <h3>Current category: {selectedCategory}</h3>
-        <b>items:</b>
-        <div>
-          {this.storeDataToDisplay()?.map(({ id, name }) => (
-            <Product key={id} />
-          ))}
+        <h1 className="ProductsPage__header">{activeCategory}</h1>
+        <div className="ProductsPage__product-list">
+          {correctCategoryItems.length > 0 &&
+            correctCategoryItems.map((product) => (
+              <Product key={product.id} product={product} />
+            ))}
         </div>
       </div>
     );
   }
 }
-export default ProductsPage;
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsPage);
+
 // <LinkToItem linkId={id} classNameProp="navigation-link" text="" /> piemers

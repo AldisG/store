@@ -3,9 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   cart: [{ title: "dummy item", price: 10, amount: 3 }],
   activeCurrency: {
-    label: "USD",
-    symbol: "$",
+    label: "",
+    symbol: "",
   },
+  selectedCategory: "",
 };
 
 export const counterSlice = createSlice({
@@ -13,16 +14,21 @@ export const counterSlice = createSlice({
   initialState,
   reducers: {
     addItems: (state, { payload }) => {
-      console.log("redux", payload);
       state.cart = [...state.cart, payload];
     },
     updateActiveCurrency: (state, { payload }) => {
-      console.log(payload);
       state.activeCurrency = payload;
     },
+    updateSelectedCategory: (state, { payload }) => {
+      state.selectedCategory = payload;
+    },
+    // setAllItems: (state, { payload }) => {
+    //   state.selectedCategory = payload;
+    // },
   },
 });
 
-export const { addItems, updateActiveCurrency } = counterSlice.actions;
+export const { addItems, updateActiveCurrency, updateSelectedCategory } =
+  counterSlice.actions;
 
 export default counterSlice.reducer;

@@ -8,7 +8,7 @@
   }
 }
 .navigation-container {
-  padding: 2.8rem 10rem 3.2rem 10rem;
+  padding: 2.8rem 0;
   justify-content: space-between;
   font-size: 1 6rem;
 }
@@ -18,9 +18,10 @@
     font-weight: 400;
     padding: 0 1.6rem 3rem 1.6rem;
     border-bottom: 2px solid transparent;
-
+    transition: font-weight 0.3s, border-bottom 0.3s;
     &:hover {
-      border-bottom: 2px solid $textL;
+      // border-bottom: 2px solid $textL;
+      text-decoration: underline;
     }
   }
   .link.active {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 // import { useNavigate, useParams } from "react-router-dom";
 
-class Product extends Component {
+class SingleProductPage extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -11,8 +11,8 @@ class Product extends Component {
     // const result = showList.find(({ show }) => String(show.id) === String(ID))
   };
   render() {
-    return <div className="Product">Product page</div>;
+    return <div className="SingleProductPage">SingleProductPage</div>;
   }
 }
 
-export default Product;
+export default SingleProductPage;

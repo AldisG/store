@@ -1,23 +1,33 @@
+import "./index.scss";
 import React, { Component } from "react";
+import { Route, Routes } from "react-router-dom";
 import { gql } from "@apollo/client";
 
 import ProductsPage from "./pages/ProductsPage";
-import { Route, Routes } from "react-router-dom";
-import Product from "./pages/Product";
-// import { mainStoreData } from "./util/graphQlSchemas";
-import { allMainStoreData } from "./util/graphQlSchemas";
+import SingleProductPage from "./pages/SingleProductPage";
 import ErrorPage from "./pages/ErrorPage";
+
+import { allMainStoreData } from "./util/graphQlSchemas";
 import { client } from "./util/apiDataFetcher";
-import Navigation from "./components/Navigation";
+
+import Navigation from "./components/navbar/Navigation";
 import LoadingHinter from "./components/LoadingHinter";
-import "./index.scss";
+
+// import { updateSelectedCategory } from "../../redux/storeSlice";
+import { dispatch, getState } from "./redux/store";
+import { mapDispatchToProps, mapStateToProps } from "./redux/mapStates";
+import { connect } from "react-redux";
+
+import { addItems } from "./redux/storeSlice";
+import { addAnewItem } from "./redux/store";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      storeApiData: [],
       isLoading: true,
+      dataSuccess: false,
+      storeApiData: [],
       categoryChoices: [],
       currencies: [],
     };
@@ -30,28 +40,44 @@ class App extends Component {
           ${allMainStoreData}
         `,
       })
+
       .then((result) => {
-        // console.log(result.data.currencies);
+        const { setAllItemsList, setActiveCurrency, setActiveCategory } =
+          this.props;
         const categories = result.data.categories.map(({ name }) => name);
+        const activeStoreCategory = getState().cart.selectedCategory;
+        const findCorrectIndex = (element) => element === activeStoreCategory;
+        if (result) {
+          this.setState({
+            dataSuccess: true,
+          });
+        }
+        setAllItemsList(result.data.categories);
+        setActiveCategory(categories[0]);
+        const { label, symbol } = result.data.currencies[0];
+        setActiveCurrency({ label, symbol });
+
         this.setState({ storeApiData: result.data.categories });
         this.setState({ isLoading: result.loading });
         this.setState({ categoryChoices: categories });
         this.setState({ currencies: result.data.currencies });
       });
   }
-  // componentDidUpdate(_, prevState) {
-  //   if (prevState.storeApiData !== this.state.storeApiData) {
-  //     console.log(this.state.storeApiData);
-  //   }
-  // }
   render() {
-    const { categoryChoices, isLoading, storeApiData, currencies } = this.state;
+    // console.log(this.props.cart);
+    const {
+      categoryChoices,
+      storeApiData,
+      currencies,
+      dataSuccess,
+      isLoading,
+    } = this.state;
     if (isLoading) {
       return <LoadingHinter />;
     }
     return (
       <div className="App">
-        {categoryChoices.length > 0 && (
+        {dataSuccess && (
           <>
             <Navigation categories={categoryChoices} currencies={currencies} />
             <Routes>
@@ -60,11 +86,11 @@ class App extends Component {
                 element={
                   <ProductsPage
                     storeApiData={storeApiData}
-                    selectedCategory={categoryChoices[0]}
+                    selectedCategory={categoryChoices[2]}
                   />
                 }
               />
-              <Route path="/:ID" element={<Product />} />
+              <Route path="/:ID" element={<SingleProductPage />} />
               <Route path="*" element={<ErrorPage />} />
             </Routes>
           </>
@@ -74,4 +100,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);

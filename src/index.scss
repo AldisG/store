@@ -26,11 +26,14 @@ a {
   font-family: "Raleway", sans-serif;
   color: $textC;
 }
-
+.App {
+  padding: 10rem;
+  padding-top: 0;
+}
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  // .App-logo {
+  //   animation: App-logo-spin infinite 20s linear;
+  // }
 }
 
 @keyframes some-spinning-anim {
