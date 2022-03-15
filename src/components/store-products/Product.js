@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 // import { useNavigate, useParams } from "react-router-dom";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { mapStateToProps, mapDispatchToProps } from "../../redux/mapStates";
 import AddToCartIcn from "../AddToCartIcn";
 import SmallProductInfo from "../SmallProductInfo";
@@ -18,26 +19,33 @@ class Product extends Component {
   hideAddToCartItem = () => {
     this.setState({ showCartAddIcon: false });
   };
-  addItemToTheCart = () => {
-    const { addAnewItem } = this.props;
-    // const { cart } = this.props.cart;
-    // console.log(cart);
-    // addAnewItem("aaaaaaaaa");
+
+  currentPrice = () => {
+    const { prices } = this.props.product;
+    const { activeCurrency } = this.props.cart;
+    return prices.find((item) => item.currency.label === activeCurrency.label);
   };
+
+  addItemToTheCart = (itemData) => {
+    const { addAnewItem } = this.props;
+    const { name } = this.props.product;
+    // const { cart } = this.props.cart;
+    // console.log("cart");
+
+    addAnewItem({
+      name: name,
+      amount: 1,
+      value: this.currentPrice().currency.symbol,
+      price: this.currentPrice().amount,
+    });
+  };
+
   // const { ID } = useParams()
   // const result = showList.find(({ show }) => String(show.id) === String(ID))
   render() {
-    const { name, brand, category, description, gallery, id, inStock, prices } =
-      this.props.product;
-
+    const { name, gallery, id, inStock } = this.props.product;
     const { showCartAddIcon } = this.state;
-    const { activeCurrency } = this.props.cart;
-
     const thumbnailPhoto = gallery[0];
-
-    const currentPrice = prices.find(
-      (item) => item.currency.label === activeCurrency.label
-    );
 
     return (
       <div
@@ -45,22 +53,28 @@ class Product extends Component {
         onMouseOver={() => this.showAddToCartItem()}
         onMouseLeave={() => this.hideAddToCartItem()}
       >
+        {/* <Link to={`/${id}`}> */}
         <div className="product-thumbnail">
           {inStock && <span className="out-of-stock">OUT OF STOCK</span>}
           <img src={thumbnailPhoto} alt={name} />
         </div>
+        {/* </Link> */}
 
         {!inStock && (
           <AddToCartIcn
-            showCartAddIcon={showCartAddIcon}
             addItemToTheCart={this.addItemToTheCart}
+            showCartAddIcon={showCartAddIcon}
           />
         )}
-        <SmallProductInfo
-          name={name}
-          symbol={currentPrice.currency.symbol}
-          amount={currentPrice.amount}
-        />
+        {/* <Link to={`/${id}`}> */}
+        {this.currentPrice() && (
+          <SmallProductInfo
+            name={name}
+            symbol={this.currentPrice().currency.symbol}
+            amount={this.currentPrice().amount}
+          />
+        )}
+        {/* </Link> */}
       </div>
     );
   }

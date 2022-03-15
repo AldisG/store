@@ -6,7 +6,7 @@ class AddToCartIcn extends Component {
     const { showCartAddIcon, addItemToTheCart } = this.props;
     return (
       <span
-        onClick={() => addItemToTheCart()}
+        onClick={addItemToTheCart}
         className={`AddToCartIcn ${
           showCartAddIcon ? "AddToCartIcn--active" : ""
         }`}

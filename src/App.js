@@ -52,7 +52,7 @@ class App extends Component {
             dataSuccess: true,
           });
         }
-        console.log(result.data.categories);
+        // console.log(result.data.categories);
         setActiveCategory(categories[0]);
         const { label, symbol } = result.data.currencies[0];
         setActiveCurrency({ label, symbol });
@@ -77,7 +77,7 @@ class App extends Component {
     }
     return (
       <div className="App">
-        {dataSuccess && (
+        {dataSuccess && !isLoading && (
           <>
             <Navigation categories={categoryChoices} currencies={currencies} />
             <Routes>

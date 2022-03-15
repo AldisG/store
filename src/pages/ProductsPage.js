@@ -9,9 +9,13 @@ import { mapDispatchToProps, mapStateToProps } from "../redux/mapStates";
 class ProductsPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      canDisplayData: false,
+    };
   }
-
+  componentDidMount() {
+    this.setState({ canDisplayData: true });
+  }
   storeDataToDisplay = () => {};
   render() {
     const { selectedCategory } = this.props.cart;
@@ -27,7 +31,7 @@ class ProductsPage extends Component {
       <div className="ProductsPage">
         <h1 className="ProductsPage__header">{activeCategory}</h1>
         <div className="ProductsPage__product-list">
-          {correctCategoryItems.length > 0 &&
+          {this.state.canDisplayData &&
             correctCategoryItems.map((product) => (
               <Product key={product.id} product={product} />
             ))}

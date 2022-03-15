@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { useParams } from "react-router-dom";
 // import { useNavigate, useParams } from "react-router-dom";
 
 class SingleProductPage extends Component {
@@ -7,7 +8,8 @@ class SingleProductPage extends Component {
     this.state = {};
   }
   showSelectedItem = () => {
-    // const { ID } = useParams()
+    const { ID } = useParams();
+    console.log(ID);
     // const result = showList.find(({ show }) => String(show.id) === String(ID))
   };
   render() {
