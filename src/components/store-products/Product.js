@@ -29,8 +29,6 @@ class Product extends Component {
   addItemToTheCart = (itemData) => {
     const { addAnewItem } = this.props;
     const { name } = this.props.product;
-    // const { cart } = this.props.cart;
-    // console.log("cart");
 
     addAnewItem({
       name: name,
@@ -40,8 +38,6 @@ class Product extends Component {
     });
   };
 
-  // const { ID } = useParams()
-  // const result = showList.find(({ show }) => String(show.id) === String(ID))
   render() {
     const { name, gallery, id, inStock } = this.props.product;
     const { showCartAddIcon } = this.state;
@@ -53,12 +49,12 @@ class Product extends Component {
         onMouseOver={() => this.showAddToCartItem()}
         onMouseLeave={() => this.hideAddToCartItem()}
       >
-        {/* <Link to={`/${id}`}> */}
-        <div className="product-thumbnail">
-          {inStock && <span className="out-of-stock">OUT OF STOCK</span>}
-          <img src={thumbnailPhoto} alt={name} />
-        </div>
-        {/* </Link> */}
+        <Link to={`/${id}`}>
+          <div className="product-thumbnail">
+            {inStock && <span className="out-of-stock">OUT OF STOCK</span>}
+            <img src={thumbnailPhoto} alt={name} />
+          </div>
+        </Link>
 
         {!inStock && (
           <AddToCartIcn
@@ -80,4 +76,3 @@ class Product extends Component {
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Product);
-// <LinkToItem linkId={id} classNameProp="navigation-link" text="" /> piemers

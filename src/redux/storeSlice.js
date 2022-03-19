@@ -7,6 +7,7 @@ const initialState = {
     symbol: "",
   },
   selectedCategory: "",
+  allItems: []
 };
 
 export const counterSlice = createSlice({
@@ -22,13 +23,13 @@ export const counterSlice = createSlice({
     updateSelectedCategory: (state, { payload }) => {
       state.selectedCategory = payload;
     },
-    // setAllItems: (state, { payload }) => {
-    //   state.selectedCategory = payload;
-    // },
+    setStoreItems: (state, { payload }) => {
+      state.allItems = payload;
+    },
   },
 });
 
-export const { addItems, updateActiveCurrency, updateSelectedCategory } =
+export const { addItems, updateActiveCurrency, updateSelectedCategory, setStoreItems } =
   counterSlice.actions;
 
 export default counterSlice.reducer;

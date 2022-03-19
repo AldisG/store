@@ -18,7 +18,7 @@ import { dispatch, getState } from "./redux/store";
 import { mapDispatchToProps, mapStateToProps } from "./redux/mapStates";
 import { connect } from "react-redux";
 
-import { addItems } from "./redux/storeSlice";
+import { addItems, setStoreItems } from "./redux/storeSlice";
 import { addAnewItem } from "./redux/store";
 
 class App extends Component {
@@ -42,21 +42,21 @@ class App extends Component {
       })
 
       .then((result) => {
-        const { setAllItemsList, setActiveCurrency, setActiveCategory } =
+        const { setAllItemsList, setActiveCurrency, setActiveCategory, setAllStoreItems } =
           this.props;
         const categories = result.data.categories.map(({ name }) => name);
         const activeStoreCategory = getState().cart.selectedCategory;
-        const findCorrectIndex = (element) => element === activeStoreCategory;
+        // const findCorrectIndex = (element) => element === activeStoreCategory;
         if (result) {
           this.setState({
             dataSuccess: true,
           });
         }
-        // console.log(result.data.categories);
         setActiveCategory(categories[0]);
         const { label, symbol } = result.data.currencies[0];
         setActiveCurrency({ label, symbol });
-
+        
+        setAllStoreItems(result.data.categories)
         this.setState({ storeApiData: result.data.categories });
         this.setState({ isLoading: result.loading });
         this.setState({ categoryChoices: categories });
@@ -64,7 +64,6 @@ class App extends Component {
       });
   }
   render() {
-    // console.log(this.props.cart);
     const {
       categoryChoices,
       storeApiData,

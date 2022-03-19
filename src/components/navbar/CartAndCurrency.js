@@ -21,12 +21,6 @@ class CartAndCurrency extends Component {
       currentCurrency: activeCurrency,
       cartItemsToDisplay: cart.length,
     });
-    // const { currencies } = this.props;
-
-    // this.props.setActiveCurrency({
-    //   label: currencies[0].label,
-    //   symbol: currencies[0].symbol,
-    // });
   }
 
   changeCurrentCurrency = (e) => {
