@@ -62,15 +62,15 @@ class Product extends Component {
             showCartAddIcon={showCartAddIcon}
           />
         )}
-        {/* <Link to={`/${id}`}> */}
-        {this.currentPrice() && (
-          <SmallProductInfo
-            name={name}
-            symbol={this.currentPrice().currency.symbol}
-            amount={this.currentPrice().amount}
-          />
-        )}
-        {/* </Link> */}
+        <Link to={`/${id}`}>
+          {this.currentPrice() && (
+            <SmallProductInfo
+              name={name}
+              symbol={this.currentPrice().currency.symbol}
+              amount={this.currentPrice().amount}
+            />
+          )}
+        </Link>
       </div>
     );
   }

@@ -19,3 +19,44 @@
     box-shadow: 0 1rem 1rem $textL;
   }
 }
+// Add cart button
+.add-to-cart-btn {
+  background-color: $cSecondary;
+  border: none;
+  padding: 1.6rem 3.2rem;
+  color: $white;
+  width: 100%;
+  height: max-content;
+  position: relative;
+  &:disabled {
+    background-color: $grey;
+    cursor: default;
+  }
+  &:disabled:hover {
+    &::after {
+      content: "Sorry, product is out of stock...";
+      position: absolute;
+      top: -8rem;
+      left: 50%;
+      transform: translateX(-50%);
+
+      width: 22rem;
+      padding: 1rem 2rem;
+      border: 2px solid $textC;
+      background-color: $white;
+
+      font-family: "Roboto", sans-serif;
+      color: $textC;
+      font-weight: 700;
+      font-size: 1.6rem;
+      text-align: center;
+    }
+  }
+}
+// Font elements
+.roboto-condensed-font {
+  font-family: "Roboto Condensed", sans-serif;
+}
+.roboto-font {
+  font-family: "Roboto", sans-serif;
+}

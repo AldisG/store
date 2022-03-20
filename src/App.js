@@ -42,8 +42,12 @@ class App extends Component {
       })
 
       .then((result) => {
-        const { setAllItemsList, setActiveCurrency, setActiveCategory, setAllStoreItems } =
-          this.props;
+        const {
+          setAllItemsList,
+          setActiveCurrency,
+          setActiveCategory,
+          setAllStoreItems,
+        } = this.props;
         const categories = result.data.categories.map(({ name }) => name);
         const activeStoreCategory = getState().cart.selectedCategory;
         // const findCorrectIndex = (element) => element === activeStoreCategory;
@@ -55,8 +59,8 @@ class App extends Component {
         setActiveCategory(categories[0]);
         const { label, symbol } = result.data.currencies[0];
         setActiveCurrency({ label, symbol });
-        
-        setAllStoreItems(result.data.categories)
+
+        setAllStoreItems(result.data.categories);
         this.setState({ storeApiData: result.data.categories });
         this.setState({ isLoading: result.loading });
         this.setState({ categoryChoices: categories });
@@ -79,19 +83,21 @@ class App extends Component {
         {dataSuccess && !isLoading && (
           <>
             <Navigation categories={categoryChoices} currencies={currencies} />
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <ProductsPage
-                    storeApiData={storeApiData}
-                    selectedCategory={categoryChoices[2]}
-                  />
-                }
-              />
-              <Route path="/:ID" element={<SingleProductPage />} />
-              <Route path="*" element={<ErrorPage />} />
-            </Routes>
+            <div className="page-content">
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <ProductsPage
+                      storeApiData={storeApiData}
+                      selectedCategory={categoryChoices[2]}
+                    />
+                  }
+                />
+                <Route path="/:ID" element={<SingleProductPage />} />
+                <Route path="*" element={<ErrorPage />} />
+              </Routes>
+            </div>
           </>
         )}
       </div>
